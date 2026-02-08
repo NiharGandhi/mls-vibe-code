@@ -1,18 +1,36 @@
 import nodemailer from "nodemailer";
 
-const smtpPort = Number(process.env.SMTP_PORT) || 587;
-// Port 465 = implicit TLS (secure: true). Port 587 = STARTTLS (secure: false).
-// If you get 421/EPROTOCOL with Hostinger, try port 465 and secure: true.
-export const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: smtpPort,
-  secure: smtpPort === 465,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
-  },
-  connectionTimeout: 10000,
-});
+/**
+ * Production email checklist:
+ * - Set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD in your host's env (e.g. Vercel).
+ * - Some hosts block outbound SMTP; use port 465 (TLS) if 587 fails, or a relay (SendGrid, Resend, etc.).
+ * - SMTP_FROM: optional; defaults to SMTP_USER. Use a verified sender for your domain.
+ */
+function getTransporter() {
+  const host = process.env.SMTP_HOST;
+  const port = Number(process.env.SMTP_PORT) || 587;
+  const secure = port === 465;
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
+    connectionTimeout: 10000,
+  });
+}
+
+export const transporter = getTransporter();
+
+/** True if SMTP env vars are set so we can attempt to send. */
+export function isSmtpConfigured(): boolean {
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASSWORD;
+  return Boolean(host && user && pass);
+}
 
 /**
  * Verify the SMTP connection. Call at startup or before sending to catch config errors early.
@@ -74,15 +92,29 @@ export type SendEmailOptions = {
 /**
  * Send an email via the configured transporter.
  * Use void sendEmail(...) in auth callbacks to avoid blocking (timing attacks).
+ * In production, if SMTP env vars are missing or send fails, errors are logged (check host logs).
  */
 export async function sendEmail({ to, subject, text, html }: SendEmailOptions): Promise<void> {
-  await transporter.sendMail({
-    from: FROM,
-    to,
-    subject,
-    text: text ?? undefined,
-    html: html ?? (text ? undefined : undefined),
-  });
+  if (!isSmtpConfigured()) {
+    console.error(
+      "[Email] Cannot send: SMTP not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASSWORD in production."
+    );
+    return;
+  }
+  try {
+    await transporter.sendMail({
+      from: FROM,
+      to,
+      subject,
+      text: text ?? undefined,
+      html: html ?? (text ? undefined : undefined),
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    const code = err && typeof (err as { code?: string }).code === "string" ? (err as { code: string }).code : undefined;
+    console.error("[Email] Send failed:", { to: to.slice(0, 20) + "...", subject, message, code });
+    throw err;
+  }
 }
 
 /**

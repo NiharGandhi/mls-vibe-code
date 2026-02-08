@@ -22,6 +22,8 @@ Required: `DATABASE_URL`, `BETTER_AUTH_BASE_URL` or `NEXT_PUBLIC_APP_URL`, `SMTP
 
 Optional: `SMTP_FROM` (defaults to SMTP_USER), `APP_NAME` (defaults to "Vibe It").
 
+**Email in production:** If email doesn’t work, check host logs for `[Email]` messages. Ensure `SMTP_HOST`, `SMTP_USER`, and `SMTP_PASSWORD` are set in the production environment. Some hosts block outbound SMTP; try port 465 (TLS) or use a transactional provider (SendGrid, Resend, etc.) with their SMTP or API.
+
 ## Architecture
 
 **Platform**: A challenge/hackathon management app where teams register for challenges, submit work, and get scored by admins.
