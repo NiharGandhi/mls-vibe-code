@@ -96,10 +96,10 @@ export type SendEmailOptions = {
  */
 export async function sendEmail({ to, subject, text, html }: SendEmailOptions): Promise<void> {
   if (!isSmtpConfigured()) {
-    console.error(
-      "[Email] Cannot send: SMTP not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASSWORD in production."
-    );
-    return;
+    const msg =
+      "[Email] SMTP not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASSWORD in production.";
+    console.error(msg);
+    throw new Error(msg);
   }
   try {
     await transporter.sendMail({

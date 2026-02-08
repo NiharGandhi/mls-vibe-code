@@ -48,14 +48,10 @@ export const auth = betterAuth({
     sendOnSignIn: true,
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user: u, url }) => {
-      void sendVerificationEmail(u.email, url, u.name).catch((err) =>
-        console.error("[Better Auth] Failed to send verification email:", err)
-      );
+      await sendVerificationEmail(u.email, url, u.name);
     },
     afterEmailVerification: async (u) => {
-      void sendWelcomeEmail(u.email, u.name).catch((err) =>
-        console.error("[Better Auth] Failed to send welcome email:", err)
-      );
+      await sendWelcomeEmail(u.email, u.name);
     },
   },
   hooks: {
@@ -76,14 +72,12 @@ export const auth = betterAuth({
   plugins: [
     magicLink({
       async sendMagicLink(data) {
-        void sendEmail({
+        await sendEmail({
           to: data.email,
           subject: "Sign in to your account",
           text: `Click the link below to sign in:\n\n${data.url}\n\nIf you didn't request this, you can ignore this email.`,
           html: `<p>Click the link below to sign in:</p><p><a href="${data.url}">Sign in</a></p><p>If you didn't request this, you can ignore this email.</p>`,
-        }).catch((err) =>
-          console.error("[Better Auth] Failed to send magic link email:", err)
-        );
+        });
       },
     }),
     nextCookies(),
