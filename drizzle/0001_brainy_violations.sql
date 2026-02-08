@@ -1,0 +1,1 @@
+ALTER TABLE "teams" ALTER COLUMN "max_members" SET DEFAULT 3;

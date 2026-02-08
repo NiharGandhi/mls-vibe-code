@@ -1,0 +1,1 @@
+ALTER TABLE "challenges" ADD COLUMN "submission_type_config" jsonb DEFAULT '{}'::jsonb;

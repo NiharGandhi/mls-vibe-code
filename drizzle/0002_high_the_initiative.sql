@@ -1,0 +1,1 @@
+DROP INDEX "teams_challenge_id_unique";
