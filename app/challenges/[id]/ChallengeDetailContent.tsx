@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Users, Trophy, UsersRound } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatDateInDubai, formatDateTimeInDubai } from "@/lib/datetime-dubai";
 import { MarkdownContent } from "@/components/MarkdownContent";
 import Link from "next/link";
 import { FileUp } from "lucide-react";
@@ -48,15 +49,6 @@ const statusConfig = {
     className: "bg-muted text-muted-foreground",
   },
 } as const;
-
-function formatDate(iso: string | null): string {
-  if (!iso) return "TBD";
-  return new Date(iso).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
 
 function formatTeamSize(min: number | null, max: number | null): string {
   if (min == null && max == null) return "Flexible";
@@ -214,9 +206,9 @@ export function ChallengeDetailContent({ challenge, ownedTeam, userTeamInChallen
           {(challenge.startAt || challenge.endAt) && (
             <span className="flex items-center gap-2">
               <Calendar className="size-4" />
-              {challenge.startAt && formatDate(challenge.startAt)}
+              {challenge.startAt && formatDateInDubai(challenge.startAt)}
               {challenge.startAt && challenge.endAt && " – "}
-              {challenge.endAt && formatDate(challenge.endAt)}
+              {challenge.endAt && formatDateInDubai(challenge.endAt)}
             </span>
           )}
           <span className="flex items-center gap-2">
@@ -259,7 +251,7 @@ export function ChallengeDetailContent({ challenge, ownedTeam, userTeamInChallen
 
       {challenge.submissionDeadline && challenge.status !== "finished" && (
         <p className="text-sm text-muted-foreground">
-          Submission deadline: {formatDate(challenge.submissionDeadline)}
+          Submission deadline (Dubai): {formatDateTimeInDubai(challenge.submissionDeadline)}
         </p>
       )}
     </div>

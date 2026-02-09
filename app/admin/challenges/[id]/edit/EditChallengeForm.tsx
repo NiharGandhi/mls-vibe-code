@@ -17,6 +17,7 @@ import {
   submissionFormBuilderValueToPayload,
   type SubmissionFormBuilderValue,
 } from "../../_components/SubmissionFormBuilder";
+import { dubaiInputToUTC } from "@/lib/datetime-dubai";
 
 interface ChallengeData {
   id: number;
@@ -100,9 +101,9 @@ export function EditChallengeForm({
       maxTeams: (formData.get("maxTeams") as string)?.trim()
         ? parseInt(formData.get("maxTeams") as string, 10)
         : null,
-      startAt: (formData.get("startAt") as string) || null,
-      endAt: (formData.get("endAt") as string) || null,
-      submissionDeadline: (formData.get("submissionDeadline") as string) || null,
+      startAt: dubaiInputToUTC((formData.get("startAt") as string) || null)?.toISOString() ?? null,
+      endAt: dubaiInputToUTC((formData.get("endAt") as string) || null)?.toISOString() ?? null,
+      submissionDeadline: dubaiInputToUTC((formData.get("submissionDeadline") as string) || null)?.toISOString() ?? null,
       submissionTypes,
       submissionTypeConfig,
     };
@@ -493,7 +494,7 @@ export function EditChallengeForm({
             <div className="grid gap-4 sm:grid-cols-3">
               <div>
                 <label htmlFor="startAt" className="mb-1.5 block text-sm font-medium text-foreground">
-                  Start date
+                  Start date (Dubai)
                 </label>
                 <input
                   id="startAt"
@@ -505,7 +506,7 @@ export function EditChallengeForm({
               </div>
               <div>
                 <label htmlFor="endAt" className="mb-1.5 block text-sm font-medium text-foreground">
-                  End date
+                  End date (Dubai)
                 </label>
                 <input
                   id="endAt"
@@ -517,7 +518,7 @@ export function EditChallengeForm({
               </div>
               <div>
                 <label htmlFor="submissionDeadline" className="mb-1.5 block text-sm font-medium text-foreground">
-                  Submission deadline
+                  Submission deadline (Dubai)
                 </label>
                 <input
                   id="submissionDeadline"

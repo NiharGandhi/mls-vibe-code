@@ -1,6 +1,7 @@
 "use client";
 
 import type { Challenge } from "@/lib/challenge";
+import { formatDateInDubai } from "@/lib/datetime-dubai";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -64,9 +65,9 @@ export function AdminChallengesList({ challenges }: AdminChallengesListProps) {
               </td>
               <td className="px-4 py-3 text-muted-foreground">
                 {c.startAt
-                  ? new Date(c.startAt).toLocaleDateString()
+                  ? formatDateInDubai(c.startAt)
                   : "—"}
-                {c.endAt && ` – ${new Date(c.endAt).toLocaleDateString()}`}
+                {c.endAt && ` – ${formatDateInDubai(c.endAt)}`}
               </td>
               <td className="px-4 py-3 text-muted-foreground">
                 {c.minTeamSize ?? 1}–{c.maxTeamSize ?? "∞"}

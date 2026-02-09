@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { MarkdownContent } from "@/components/MarkdownContent";
 import type { Challenge } from "@/lib/challenge";
+import { formatDateInDubai } from "@/lib/datetime-dubai";
 import { Calendar, Users, Trophy } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -33,16 +34,6 @@ const statusConfig = {
     dotClassName: "bg-muted-foreground",
   },
 } as const;
-
-function formatDate(iso: string | null): string {
-  if (!iso) return "TBD";
-  const d = new Date(iso);
-  return d.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-}
 
 function formatTeamSize(min: number | null, max: number | null): string {
   if (min == null && max == null) return "Flexible";
@@ -91,9 +82,9 @@ export default function ChallengeCard({ challenge }: ChallengeCardProps) {
           {(challenge.startAt || challenge.endAt) && (
             <span className="flex items-center gap-1.5">
               <Calendar className="size-3.5 shrink-0" />
-              {challenge.startAt && formatDate(challenge.startAt)}
+              {challenge.startAt && formatDateInDubai(challenge.startAt)}
               {challenge.startAt && challenge.endAt && " → "}
-              {challenge.endAt && formatDate(challenge.endAt)}
+              {challenge.endAt && formatDateInDubai(challenge.endAt)}
             </span>
           )}
           <span className="flex items-center gap-1.5">

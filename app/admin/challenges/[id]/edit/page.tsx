@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { getJudgesForChallenge } from "@/lib/challenge-judges";
 import { getRubricCriteriaByChallengeId } from "@/lib/rubric";
+import { utcToDubaiInputValue } from "@/lib/datetime-dubai";
 import { EditChallengeForm } from "./EditChallengeForm";
 
 export default async function EditChallengePage({
@@ -34,21 +35,9 @@ export default async function EditChallengePage({
     minTeamSize: challenge.minTeamSize,
     maxTeamSize: challenge.maxTeamSize,
     maxTeams: challenge.maxTeams,
-    startAt: challenge.startAt
-      ? challenge.startAt instanceof Date
-        ? challenge.startAt.toISOString().slice(0, 16)
-        : String(challenge.startAt).slice(0, 16)
-      : null,
-    endAt: challenge.endAt
-      ? challenge.endAt instanceof Date
-        ? challenge.endAt.toISOString().slice(0, 16)
-        : String(challenge.endAt).slice(0, 16)
-      : null,
-    submissionDeadline: challenge.submissionDeadline
-      ? challenge.submissionDeadline instanceof Date
-        ? challenge.submissionDeadline.toISOString().slice(0, 16)
-        : String(challenge.submissionDeadline).slice(0, 16)
-      : null,
+    startAt: utcToDubaiInputValue(challenge.startAt),
+    endAt: utcToDubaiInputValue(challenge.endAt),
+    submissionDeadline: utcToDubaiInputValue(challenge.submissionDeadline),
     submissionTypes: Array.isArray(challenge.submissionTypes) ? challenge.submissionTypes : [],
     submissionTypeConfig:
       challenge.submissionTypeConfig && typeof challenge.submissionTypeConfig === "object"
