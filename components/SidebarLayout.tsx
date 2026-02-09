@@ -6,6 +6,7 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AppSidebar } from "@/components/AppSidebar";
 import { UserMenu } from "@/components/UserMenu";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { RouteProgressBar } from "@/components/RouteProgressBar";
 import { cn } from "@/lib/utils";
 
@@ -59,6 +60,7 @@ export function SidebarLayout({
             <Menu className="size-5" />
           </Button>
           <div className="flex-1" />
+          <ThemeToggle />
           <UserMenu />
         </header>
 

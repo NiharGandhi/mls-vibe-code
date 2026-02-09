@@ -1,23 +1,43 @@
 import Link from "next/link";
-import { Trophy, Users, Zap, ArrowRight, Sparkles } from "lucide-react";
+import { Trophy, Users, Zap, ArrowRight, Sparkles, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PulsingLinesBackground } from "@/components/PulsingLinesBackground";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { LaptopSvg, ServerSvg, CodeSvg, DatabaseSvg } from "@/components/ITElementSvgs";
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
-      {/* Background gradient mesh */}
-      <div
-        className="pointer-events-none fixed inset-0 -z-10"
-        aria-hidden
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,oklch(0.65_0.18_55/0.15),transparent)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,oklch(0.65_0.18_55/0.2),transparent)]" />
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-orange-500/5 via-transparent to-transparent dark:from-orange-500/10" />
-        <div className="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-orange-400/10 blur-3xl dark:bg-orange-500/10" />
-        <div className="absolute bottom-1/4 -left-32 h-80 w-80 rounded-full bg-amber-400/10 blur-3xl dark:bg-amber-500/10" />
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background: pulsing lines + IT element SVGs + soft gradients (fixed, behind content) */}
+      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
+        <PulsingLinesBackground />
+        {/* IT Elements as background art – laptop, server, code, database */}
+        <div className="absolute left-[5%] top-[18%] w-32 text-muted-foreground opacity-[0.14] dark:opacity-[0.18] sm:w-40">
+          <LaptopSvg className="size-full" />
+        </div>
+        <div className="absolute right-[8%] top-[12%] w-28 text-muted-foreground opacity-[0.12] dark:opacity-[0.16] sm:w-36">
+          <ServerSvg className="size-full" />
+        </div>
+        <div className="absolute bottom-[22%] left-[10%] w-24 text-muted-foreground opacity-[0.13] dark:opacity-[0.17] sm:w-32">
+          <CodeSvg className="size-full" />
+        </div>
+        <div className="absolute bottom-[18%] right-[12%] w-28 text-muted-foreground opacity-[0.11] dark:opacity-[0.15] sm:w-36">
+          <DatabaseSvg className="size-full" />
+        </div>
+        <div className="absolute right-[25%] top-[45%] w-20 text-muted-foreground opacity-[0.08] dark:opacity-[0.12] sm:w-24">
+          <CodeSvg className="size-full" />
+        </div>
+        <div className="absolute left-[15%] bottom-[35%] w-24 text-muted-foreground opacity-[0.09] dark:opacity-[0.13] sm:w-28">
+          <ServerSvg className="size-full" />
+        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,oklch(0.65_0.18_55/0.12),transparent)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,oklch(0.65_0.18_55/0.18),transparent)]" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-orange-500/10 via-transparent to-transparent dark:from-orange-500/15" />
       </div>
+      {/* Solid background behind the animated layer */}
+      <div className="absolute inset-0 -z-10 bg-background" aria-hidden />
 
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-5 sm:px-8 md:px-12">
+      <header className="relative z-10 flex items-center justify-between px-6 py-5 sm:px-8 md:px-12">
         <Link
           href="/"
           className="flex items-center gap-2 font-semibold tracking-tight text-foreground"
@@ -27,7 +47,8 @@ export default function LandingPage() {
           </span>
           MLS Challenges
         </Link>
-        <nav className="flex items-center gap-3">
+        <nav className="flex items-center gap-2">
+          <ThemeToggle />
           <Button variant="ghost" asChild>
             <Link href="/auth/sign-in">Sign in</Link>
           </Button>
@@ -38,11 +59,17 @@ export default function LandingPage() {
       </header>
 
       {/* Hero */}
-      <main className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-24 md:py-32">
+      <main className="relative z-10 mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-24 md:py-32">
         <section className="flex flex-col items-center text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/5 px-4 py-1.5 text-sm font-medium text-orange-700 dark:border-orange-400/20 dark:bg-orange-500/10 dark:text-orange-300">
-            <Sparkles className="size-4" />
-            Compete. Collaborate. Win.
+          <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/5 px-4 py-1.5 text-sm font-medium text-orange-700 dark:border-orange-400/20 dark:bg-orange-500/10 dark:text-orange-300">
+              <Sparkles className="size-4" />
+              Compete. Collaborate. Win.
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-muted/60 px-4 py-1.5 text-sm font-medium text-muted-foreground dark:bg-muted/40 dark:text-muted-foreground">
+              <Code2 className="size-4 text-orange-500 dark:text-orange-400" />
+              IT Elements
+            </div>
           </div>
           <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
             Join challenges.
@@ -123,7 +150,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-24 border-t border-border/60 px-6 py-8 sm:px-8 md:px-12">
+      <footer className="relative z-10 mt-24 border-t border-border/60 px-6 py-8 sm:px-8 md:px-12">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
           <Link
             href="/"
