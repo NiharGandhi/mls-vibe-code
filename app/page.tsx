@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Trophy, Users, Zap, ArrowRight, Sparkles, Code2 } from "lucide-react";
+import { Trophy, Users, Zap, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PulsingLinesBackground } from "@/components/PulsingLinesBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -45,7 +45,10 @@ export default function LandingPage() {
           <span className="flex size-8 items-center justify-center rounded-lg bg-orange-500 text-white">
             <Trophy className="size-4" />
           </span>
-          MLS Challenges
+          Vibe-a-thon
+          <span className="hidden text-xs font-normal text-muted-foreground sm:inline">
+            by MLS · Machine Learning Society
+          </span>
         </Link>
         <nav className="flex items-center gap-2">
           <ThemeToggle />
@@ -64,31 +67,24 @@ export default function LandingPage() {
           <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/5 px-4 py-1.5 text-sm font-medium text-orange-700 dark:border-orange-400/20 dark:bg-orange-500/10 dark:text-orange-300">
               <Sparkles className="size-4" />
-              Compete. Collaborate. Win.
-            </div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-muted/60 px-4 py-1.5 text-sm font-medium text-muted-foreground dark:bg-muted/40 dark:text-muted-foreground">
-              <Code2 className="size-4 text-orange-500 dark:text-orange-400" />
-              IT Elements
+              Vibe-a-thon • Organised by MLS (Machine Learning Society)
             </div>
           </div>
           <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-            Join challenges.
+            Vibe-a-thon:
             <br />
             <span className="bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent dark:from-orange-400 dark:to-amber-400">
-              Form teams.
+              one challenge, endless energy.
             </span>
-            <br />
-            Show what you can do.
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            MLS Challenges brings together talented individuals to compete in
-            coding challenges. Create or join teams, tackle real problems, and
-            level up your skills.
+            Vibe-a-thon is a single, high‑energy coding challenge hosted by the Machine Learning Society (MLS). 
+            Form a team, ship your best ideas in a focused time window, and show the community what you can build.
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
             <Button size="lg" className="gap-2 text-base" asChild>
               <Link href="/auth/sign-up">
-                Get started
+                Register for Vibe-a-thon
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
@@ -104,30 +100,30 @@ export default function LandingPage() {
             <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400">
               <Trophy className="size-6" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground">Challenges</h3>
+            <h3 className="text-lg font-semibold text-foreground">The Challenge</h3>
             <p className="mt-2 text-muted-foreground">
-              Browse live and upcoming challenges. Register, submit, and track
-              your progress.
+              A single themed brief with clear problem statements and judging criteria. 
+              You get one shot to ideate, build, and submit your best solution.
             </p>
           </div>
           <div className="group rounded-2xl border border-border/60 bg-card/50 p-6 shadow-sm backdrop-blur-sm transition-all hover:border-orange-500/30 hover:shadow-lg dark:bg-card/30">
             <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
               <Users className="size-6" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground">Teams</h3>
+            <h3 className="text-lg font-semibold text-foreground">Team Experience</h3>
             <p className="mt-2 text-muted-foreground">
-              Form teams, invite members, and collaborate. Request to join or
-              create your own.
+              Form a team with friends or classmates, or join an existing one. 
+              Mix skills across frontend, backend, ML, and product to cover all angles.
             </p>
           </div>
           <div className="group rounded-2xl border border-border/60 bg-card/50 p-6 shadow-sm backdrop-blur-sm transition-all hover:border-orange-500/30 hover:shadow-lg dark:bg-card/30 sm:col-span-2 lg:col-span-1">
             <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
               <Zap className="size-6" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground">Compete</h3>
+            <h3 className="text-lg font-semibold text-foreground">Judging & Prizes</h3>
             <p className="mt-2 text-muted-foreground">
-              Put your skills to the test. Get feedback, notifications, and stay
-              ahead.
+              Projects are evaluated by MLS mentors and industry guests with a transparent rubric. 
+              Top teams earn recognition, prizes, and bragging rights.
             </p>
           </div>
         </section>
@@ -135,37 +131,55 @@ export default function LandingPage() {
         {/* Bottom CTA */}
         <section className="mt-24 rounded-2xl border border-border/60 bg-gradient-to-br from-orange-500/5 via-amber-500/5 to-transparent p-8 text-center sm:p-12 md:mt-32">
           <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-            Ready to get started?
+            Ready to join Vibe-a-thon?
           </h2>
-          <p className="mt-3 text-muted-foreground">
-            Create an account and join your first challenge today.
+          <p className="mt-3 max-w-xl mx-auto text-muted-foreground">
+            Create an account, register your team, and get ready for a focused sprint of building, learning, 
+            and vibing with the MLS community.
           </p>
-          <Button size="lg" className="mt-6 gap-2" asChild>
-            <Link href="/auth/sign-up">
-              Create account
-              <ArrowRight className="size-4" />
-            </Link>
-          </Button>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+            <Button size="lg" className="gap-2" asChild>
+              <Link href="/auth/sign-up">
+                Register now
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/auth/sign-in">Already have an account?</Link>
+            </Button>
+          </div>
         </section>
       </main>
 
       {/* Footer */}
       <footer className="relative z-10 mt-24 border-t border-border/60 px-6 py-8 sm:px-8 md:px-12">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <Link
-            href="/"
-            className="flex items-center gap-2 font-medium text-muted-foreground hover:text-foreground"
-          >
-            <Trophy className="size-4" />
-            MLS Challenges
-          </Link>
-          <div className="flex gap-6 text-sm text-muted-foreground">
-            <Link href="/auth/sign-in" className="hover:text-foreground">
-              Sign in
-            </Link>
-            <Link href="/auth/sign-up" className="hover:text-foreground">
-              Sign up
-            </Link>
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+            <div className="flex flex-col items-center gap-2 sm:items-start">
+              <Link
+                href="/"
+                className="flex items-center gap-2 font-semibold text-foreground hover:opacity-80 transition-opacity"
+              >
+                <Trophy className="size-5" />
+                Vibe-a-thon
+              </Link>
+              <p className="text-sm text-muted-foreground text-center sm:text-left">
+                A single, high-energy coding challenge by MLS (Machine Learning Society).
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
+              <div className="flex gap-6 text-sm text-muted-foreground">
+                <Link href="/auth/sign-in" className="hover:text-foreground transition-colors">
+                  Sign in
+                </Link>
+                <Link href="/auth/sign-up" className="hover:text-foreground transition-colors">
+                  Sign up
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 pt-6 border-t border-border/60 text-center text-xs text-muted-foreground">
+            <p>© {new Date().getFullYear()} Vibe-a-thon · Machine Learning Society (MLS).</p>
           </div>
         </div>
       </footer>
